@@ -262,12 +262,16 @@ public class ImageMessageModel extends MessageModel {
             builder.url(mMetadata.mSourceUrl);
         }
 
-        builder.placeHolder(PLACEHOLDER)
-                .resize(mMetadata.getWidth(), mMetadata.getHeight())
-                .exifOrientation(mMetadata.mOrientation)
-                .tag(getClass().getSimpleName());
+        try {
+            builder.placeHolder(PLACEHOLDER)
+                    .resize(mMetadata.getWidth(), mMetadata.getHeight())
+                    .exifOrientation(mMetadata.mOrientation)
+                    .tag(getClass().getSimpleName());
 
-        mSourceRequestParameters = builder.build();
+            mSourceRequestParameters = builder.build();
+        } catch (Exception e) {
+            Log.e("Failed to load image", e);
+        }
     }
 
     @Nullable
